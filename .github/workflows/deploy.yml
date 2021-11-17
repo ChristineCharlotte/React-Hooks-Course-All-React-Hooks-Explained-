@@ -1,5 +1,5 @@
-name: Deploy Project
-
+# deploy.yml
+name: deploy to baota
 on:
   push:
     branches:
@@ -7,19 +7,30 @@ on:
     paths-ignore:
       - README.md
       - LICENSE
-
 jobs:
-  build-production:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      # 切换分支
+      - name: Checkout
+        uses: actions/checkout@master
+      # 下载 git submodule
+      - uses: srt32/git-actions@v0.0.3
         with:
-          node-version: '12.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Build
-        run: npm install && npm run build
+          args: git submodule update --init --recursive
+      # 使用 node:10
+      - name: use Node.js 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      # npm install
+      - name: npm install and build
+        run: |
+          npm install
+          npm run build
+        env:
+          CI: true
+      # Deploy
       - name: Deploy file to server
         uses: appleboy/scp-action@master
         with:
@@ -29,4 +40,3 @@ jobs:
           source: 'dist/*'
           target: '/www/wwwroot/reacthooks.liojun.com'
           strip_components: 1
-          rm: 'true'
