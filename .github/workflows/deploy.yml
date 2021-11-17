@@ -39,4 +39,3 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           source: 'dist/*'
           target: '/www/wwwroot/reacthooks.liojun.com'
-          strip_components: 1
