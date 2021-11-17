@@ -1,6 +1,4 @@
 import { Link, Route, Routes, Outlet } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
 
 import EffectTutorial from './useEffect';
 import ImperativeHandle from './useImperativeHandle';
