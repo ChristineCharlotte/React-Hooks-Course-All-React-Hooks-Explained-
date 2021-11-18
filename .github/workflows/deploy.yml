@@ -38,4 +38,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           source: 'dist/*'
-          target: '/www/wwwroot/reacthooks.liojun.com'
+          target: '/www/wwwroot/reacthooks.liojun.com/dist'
